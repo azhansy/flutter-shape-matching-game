@@ -9,9 +9,9 @@ class TargetListContainer extends StatelessWidget {
   final VoidCallback onFinished;
 
   TargetListContainer({
-    Key key,
-    @required this.onDragged,
-    @required this.onFinished,
+    Key? key,
+    required this.onDragged,
+    required this.onFinished,
   }) : super(key: key);
 
   @override

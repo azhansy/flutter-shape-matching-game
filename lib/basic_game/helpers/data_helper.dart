@@ -95,7 +95,7 @@ class DataHelper {
     // generate a random unique numbers
     var list = new List<int>.generate(MaxNumberOfImages, (int index) => index);
     list.shuffle();
-    var nameSet = ItemNames[imageSetIndex];
+    var nameSet = ItemNames[imageSetIndex]!;
     var shapeList = <ShapeModel>[];
     for (var i = 0; i < totalItems; i++) {
       var imageIndex = list[i];

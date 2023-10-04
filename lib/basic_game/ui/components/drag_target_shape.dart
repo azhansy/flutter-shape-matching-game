@@ -4,13 +4,14 @@ import 'package:flutter_shapes_matching_game/basic_game/model/shape_model.dart';
 import 'package:flutter_shapes_matching_game/basic_game/services/data_change_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:collection/collection.dart';
 
 class DragTargetShape extends StatefulWidget {
   DragTargetShape({
-    Key key,
-    @required this.acceptedIcon,
-    @required this.onDragged,
-    @required this.onFinished,
+    Key? key,
+    required this.acceptedIcon,
+    required this.onDragged,
+    required this.onFinished,
   }) : super(key: key);
 
   final String acceptedIcon;
@@ -22,7 +23,7 @@ class DragTargetShape extends StatefulWidget {
 
 class _DragTargetShapeState extends State<DragTargetShape>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   initState() {
@@ -40,25 +41,24 @@ class _DragTargetShapeState extends State<DragTargetShape>
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget(onWillAccept: (ShapeModel data) {
-      return data.icon == widget.acceptedIcon;
+    return DragTarget(onWillAccept: (ShapeModel? data) {
+      return data?.icon == widget.acceptedIcon;
     }, onAccept: (ShapeModel data) async {
       Provider.of<DataChangeNotifier>(context).dropSuccess(data.index);
       widget.onDragged(data.name);
       if (Provider.of<DataChangeNotifier>(context).isFinished) {
         widget.onFinished();
       }
-    }, builder: (context, List<ShapeModel> cd, rd) {
+    }, builder: (context, List<ShapeModel?> cd, rd) {
       var droppedShape = Provider.of<DataChangeNotifier>(context)
           .droppedItems
-          .firstWhere((element) => element.icon == widget.acceptedIcon,
-              orElse: () => null);
+          .firstWhereOrNull((element) => element.icon == widget.acceptedIcon);
 
       return buildShape(droppedShape);
     });
   }
 
-  Widget buildShape(ShapeModel droppedShape) {
+  Widget buildShape(ShapeModel? droppedShape) {
     var shapeSize = Provider.of<DataChangeNotifier>(context).shapeSize;
     if (droppedShape == null) {
       return Container(

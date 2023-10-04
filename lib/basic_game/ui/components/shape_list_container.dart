@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shapes_matching_game/basic_game/services/data_change_notifier.dart';
 import 'package:flutter_shapes_matching_game/basic_game/ui/components/draggable_shape.dart';
 import 'package:provider/provider.dart';
-
+import 'package:collection/collection.dart';
 class ShapeListContainer extends StatelessWidget {
   
   @override
@@ -21,7 +21,7 @@ class ShapeListContainer extends StatelessWidget {
 
     for (int i = 0; i < totalItems; i++) {
       var item =
-          items.firstWhere((element) => element.index == i, orElse: () => null);
+          items.firstWhereOrNull((element) => element.index == i);
 
       shapes.add(
         SizedBox(

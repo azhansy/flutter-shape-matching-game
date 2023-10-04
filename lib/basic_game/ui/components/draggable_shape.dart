@@ -5,12 +5,13 @@ import 'package:flutter_shapes_matching_game/basic_game/services/data_change_not
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:collection/collection.dart';
 
 class DraggableShape extends StatefulWidget {
   final int index;
   DraggableShape({
-    Key key,
-    @required this.index,
+    Key? key,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class DraggableShape extends StatefulWidget {
 class _DraggableShape extends State<DraggableShape>
     with TickerProviderStateMixin {
   final FlutterTts flutterTts = FlutterTts();
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   initState() {
@@ -39,10 +40,13 @@ class _DraggableShape extends State<DraggableShape>
 
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<DataChangeNotifier>(context).items.firstWhere(
-        (element) => element.index == widget.index,
-        orElse: () => null);
+    var data = Provider.of<DataChangeNotifier>(context).items.firstWhereOrNull(
+        (element) => element.index == widget.index);
     var shapeSize = Provider.of<DataChangeNotifier>(context).shapeSize;
+
+    if(data ==null) {
+      return SizedBox();
+    }
 
     return Draggable(
         data: data,

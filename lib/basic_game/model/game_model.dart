@@ -4,6 +4,6 @@ class GameModel {
   List<ShapeModel> shapeList;
   String backgroundImage;
 
-  GameModel({this.shapeList, this.backgroundImage});
+  GameModel({required this.shapeList, required this.backgroundImage});
 }
  

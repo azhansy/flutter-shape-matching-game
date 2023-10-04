@@ -2,12 +2,13 @@ import 'package:flutter_shapes_matching_game/basic_game/helpers/data_helper.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_shapes_matching_game/basic_game/model/shape_model.dart';
+import 'package:collection/collection.dart';
 
 class DataChangeNotifier with ChangeNotifier {
   String _backgroundImage = '';
   double _shapeSize = 0;
   int _totalItems = 0;
-  List<ShapeModel> _items;
+  List<ShapeModel> _items =  [];
   List<ShapeModel> _droppedItems = [];
   List<ShapeModel> _targetItems = [];
   bool _isFinished = false;
@@ -32,8 +33,7 @@ class DataChangeNotifier with ChangeNotifier {
 
   /// Drop a shape successfully by the index
   dropSuccess(int index) {
-    var item = _items.firstWhere((element) => element.index == index,
-        orElse: () => null);
+    var item = _items.firstWhereOrNull((element) => element.index == index);
     if (item != null) {
       _items.removeWhere((element) => element.index == index);
       _droppedItems.add(item);

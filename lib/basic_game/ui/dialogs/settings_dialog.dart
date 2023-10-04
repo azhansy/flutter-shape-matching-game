@@ -5,14 +5,14 @@ import 'package:flutter_shapes_matching_game/basic_game/helpers/data_helper.dart
 
 class SettingsDialog extends StatefulWidget {
   final List<String> checkedItems;
-  SettingsDialog({@required this.checkedItems});
+  SettingsDialog({required this.checkedItems});
 
   @override
   _SettingsDialogState createState() => _SettingsDialogState();
 }
 
 class _SettingsDialogState extends State<SettingsDialog> {
-  List<String> _checkedItems;
+  List<String> _checkedItems = [];
 
   @override
   void initState() {
@@ -37,9 +37,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
             contentBox(context),
             Align(
               alignment: Alignment.bottomCenter,
-              child: RaisedButton(
+              child: TextButton(
                 child: Icon(Icons.save, color: Colors.white,),
-                color: Colors.blue,
+                // color: Colors.blue,
                 onPressed: () {
                   Navigator.pop(context, _checkedItems);
                 },
@@ -59,9 +59,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
               (text) => CheckboxListTile(
                 secondary: Image.asset('assets/images/$text/0.png'),
                 value: _checkedItems.contains(text),
-                onChanged: (bool newValue) {
+                onChanged: (bool? newValue) {
                   setState(() {
-                    if (newValue) {
+                    if (newValue  ?? false) {
                       if (!_checkedItems.contains(text)) {
                         _checkedItems.add(text);
                       }

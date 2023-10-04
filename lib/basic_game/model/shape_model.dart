@@ -3,6 +3,6 @@ class ShapeModel {
   String icon;
   String name;
 
-  ShapeModel({this.index, this.icon, this.name});
+  ShapeModel({required this.index, required this.icon,required this.name});
 }
  
